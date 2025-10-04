@@ -1,0 +1,57 @@
+[package]
+name = "virtual_me"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wasm-bindgen = { version = "0.2.104", optional = true }
+leptos = "0.8.10"
+axum = { version = "0.8.6", optional = true }
+tokio = { version = "1.47.1", features = ["full"], optional = true }
+leptos_axum = { version = "0.8.6", optional = true }
+leptos_meta = { version = "0.8.0" }
+leptos_router = { version = "0.8.8" }
+console_error_panic_hook = { version = "0.1.2", optional = true }
+tower-http = "0.6.6"
+serde = { version = "1.0.228", features = ["derive"] }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["ssr"]
+hydrate = ["leptos/hydrate", "dep:console_error_panic_hook", "dep:wasm-bindgen"]
+ssr = [
+	"dep:axum",
+	"dep:tokio",
+	"dep:leptos_axum",
+	"leptos/ssr",
+	"leptos_meta/ssr",
+	"leptos_router/ssr",
+]
+
+[package.metadata.leptos]
+# The name of your app (same as Cargo package name)
+output-name = "virtual_me"
+
+# Where to put built files (server will serve from here)
+site-root = "target/site"
+bin-features = ["ssr"]
+
+style-file = "style/root.scss"
+additional-stylesheets = ["style/home.css"]
+
+# The frontend source file (where your main Leptos app starts)
+site-pkg-dir = "pkg"
+lib-features = ["hydrate"]
+# The index.html template
+# site-index = "index.html"
+
+# Address the dev server runs on
+site-addr = "127.0.0.1:3000"
+
+# Where to store built assets for WASM
+bin-target = "virtual_me"
+
+# Optional: reload on file changes
+watch = true
