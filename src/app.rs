@@ -43,36 +43,9 @@ pub fn App() -> impl IntoView {
 #[component]
 fn HomePage() -> impl IntoView {
     let user_data = Resource::new(|| (), |_| async { me::provide_user_data().await });
-
-    /*    let message = move || match user_data.get() {
-        Some(Ok(data)) => data.current_crisis,
-        Some(Err(e)) => e.to_string(),
-        None => "Loading....".to_string(),
-    };*/
     view! {
              <h1>"Welcome to Leptos!"</h1>
-             /*<Suspense fallback=move || view! { <p>"Loading..."</p> }>
-         <p>{message}</p>
-     </Suspense>*/
-    /*<Suspense fallback=move || view! { <p>"Loading fields..."</p> }>
-        {move || user_data.get().map(|fields| match fields {
-            Ok(fields) => view! {
-                <div>
-                    {fields.into_iter()
-                        .map(|field| view! {
-                            <div>
-                                <strong>{field.label}:</strong> {field.value}
-                            </div>
-                        })
-                        .collect::<Vec<_>>()
-                    }
-                </div>
-            }.into_view(),
-            Err(e) => view! { <div>{"Error: "} {e.to_string()}</div> }.into_view(),
-        })}
-    </Suspense>*/
     <Suspense fallback=move || view! { <p>"Loading fields..."</p> }>
-            // ErrorBoundary handles any server-side errors automatically
             <ErrorBoundary
                 fallback=|errors| view! {
                     <div class="error">
@@ -87,10 +60,8 @@ fn HomePage() -> impl IntoView {
                     </div>
                 }
             >
-                // When the Resource resolves successfully
                 {move || {
                     user_data.get().map(|fields_opt| {
-                        // fields_opt is now Vec<Field>
                         let x = me::Field{
                            label:"No data".to_string(),
                           value:"gg go next".to_string(),
