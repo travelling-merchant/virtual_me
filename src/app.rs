@@ -44,7 +44,7 @@ pub fn App() -> impl IntoView {
 fn HomePage() -> impl IntoView {
     let user_data = Resource::new(|| (), |_| async { me::provide_user_data().await });
     view! {
-             <h1>"Welcome to Leptos!"</h1>
+             <h1>"Current Character"</h1>
     <Suspense fallback=move || view! { <p>"Loading fields..."</p> }>
             <ErrorBoundary
                 fallback=|errors| view! {
@@ -70,6 +70,7 @@ fn HomePage() -> impl IntoView {
 
                         view! {
                             <div class="user-data">
+                                <div class="user-text">
                                 {fields.iter()
                                     .map(|field| view! {
                                         <div class="user-field">
@@ -78,7 +79,12 @@ fn HomePage() -> impl IntoView {
                                     })
                                     .collect_view()
                                 }
+                                </div>
+                                <div class="user-icon">
+                                <img src="./pictures/ai_me.png"></img>
+                                </div>
                             </div>
+
                         }
                     })
                 }}

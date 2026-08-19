@@ -3,3 +3,26 @@ body {
 	background-color: var(--main-background-color);
 	color: var(--main-font-color);
 }
+h1{
+    text-align: center;
+}
+.user-data{
+   align-items: center;
+   display: flex;
+   margin-right: auto;
+   margin-left: auto;
+   width: 80%;
+}
+.user-text{
+    display: block;
+    width: 50%;
+    background-color: rgba(222,222,222,0.25);
+    padding: 3px;
+    padding-left: 8px;
+    height: 100%;
+    border-radius: var(--border-shape);
+}
+.user-icon{
+    display: block;
+    width: 50%;
+}
