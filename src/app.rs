@@ -43,9 +43,10 @@ pub fn App() -> impl IntoView {
 #[component]
 fn HomePage() -> impl IntoView {
     let user_data = Resource::new(|| (), |_| async { me::provide_user_data().await });
+    let sectors = me::strategic_sectors();
     view! {
-             <h1>"Current Character"</h1>
-    <Suspense fallback=move || view! { <p>"Loading fields..."</p> }>
+
+        <Suspense fallback=move || view! { <p>"Loading fields..."</p> }>
             <ErrorBoundary
                 fallback=|errors| view! {
                     <div class="error">
@@ -69,8 +70,16 @@ fn HomePage() -> impl IntoView {
                         let fields:Vec<me::Field> = fields_opt.unwrap_or(vec![x]);
 
                         view! {
+                            <div class="cloud-layer">
+                                <div class="cloud cloud--1"></div>
+                                <div class="cloud cloud--2"></div>
+                                <div class="cloud cloud--3"></div>
+                            </div>
+
                             <div class="user-data">
+
                                 <div class="user-text">
+                                <span class="oneLine"><h2>[Me@office character]$</h2><h2 class="h2space">cat character.md</h2></span>
                                 {fields.iter()
                                     .map(|field| view! {
                                         <div class="user-field">
@@ -82,6 +91,10 @@ fn HomePage() -> impl IntoView {
                                 </div>
                                 <div class="user-icon">
                                 <img src="./pictures/ai_me.png"></img>
+                                <a href="https://codeberg.org/bakeneko">codeberg</a>
+                                <a href="https://random.alliknowisthatiknownothing.ch/">whats this</a>
+                                <a href="https://alliknowisthatiknownothing.ch/">depricated old portfolio</a>
+
                                 </div>
                             </div>
 
@@ -90,5 +103,34 @@ fn HomePage() -> impl IntoView {
                 }}
             </ErrorBoundary>
         </Suspense>
-         }
+
+        <h2>"Strategic Roadmap upcomming 5 year plan"</h2>
+        <div class="table-wrap">
+            <table class="sector-table">
+                <thead>
+                    <tr>
+                        <th>"Strategic Sector"</th>
+                        <th>"Current Capability"</th>
+                        <th>"2032 Target"</th>
+                        <th class="center">"Status"</th>
+                        <th class="center">"Trend"</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {sectors.iter()
+                        .map(|sector| view! {
+                            <tr>
+                                <td><strong>{sector.name}</strong></td>
+                                <td>{sector.current}</td>
+                                <td>{sector.target}</td>
+                                <td class="center">{sector.status}</td>
+                                <td class="center">{sector.trend}</td>
+                            </tr>
+                        })
+                        .collect_view()
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 }

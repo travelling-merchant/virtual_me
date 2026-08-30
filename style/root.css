@@ -4,6 +4,15 @@
 	--button-font-color: black ;
 	--button-color:red;
 	--border-shape:10px;
+
+	/* Neon / cyberpunk palette */
+	--neon-cyan: #00ffff;
+	--neon-pink: #ff2bd6;
+	--neon-purple: #a200ff;
+	--neon-green: #39ff14;
+	--neon-yellow: #f9f002;
+	/* The single accent the glow effects use; change it to switch themes */
+	--accent: var(--neon-pink);
 }
 
 @media (prefers-color-scheme: light) {

@@ -3,6 +3,14 @@
 	--main-font-color: white;
 	--button-font-color: black ;
 	--button-color:red;
+
+	/* Neon / cyberpunk palette */
+	--neon-cyan: #00ffff;
+	--neon-pink: #ff2bd6;
+	--neon-purple: #a200ff;
+	--neon-green: #39ff14;
+	--neon-yellow: #f9f002;
+	--accent: var(--neon-cyan);
 }
 
 @media (prefers-color-scheme: light) {
